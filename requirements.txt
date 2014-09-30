@@ -1,3 +1,4 @@
 flask
+flask-restful
 psycopg2==2.4.5
 storm
