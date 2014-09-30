@@ -3,8 +3,8 @@ CREATE TABLE sfec_user(
     name text NOT NULL,
     email text NOT NULL UNIQUE,
     password text NOT NULL,
-    birth_date date,
-    register_date date NOT NULL,
+    birth_date timestamp,
+    register_date timestamp NOT NULL,
     type int
 );
 

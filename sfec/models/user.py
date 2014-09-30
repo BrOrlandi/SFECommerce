@@ -5,7 +5,7 @@ from hashlib import sha512
 
 from flask import request
 from storm.expr import And
-from storm.properties import Date, Unicode
+from storm.properties import DateTime, Unicode
 
 from sfec.models.base import BaseModel
 
@@ -20,8 +20,8 @@ class User(BaseModel):
     email = Unicode()
     password = Unicode()
 
-    birth_date = Date()
-    register_date = Date()
+    birth_date = DateTime()
+    register_date = DateTime()
 
     # TODO Missing type attribute
 
