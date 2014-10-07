@@ -3,6 +3,10 @@
 from flask import render_template
 
 from app import app
+from sfec.api.user import register_user_resource
+
+
+register_user_resource()
 
 
 @app.route('/')
