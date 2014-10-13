@@ -14,7 +14,6 @@ from sfec.models.base import BaseModel
 class User(BaseModel):
 
     __storm_table__ = "sfec_user"
-    id = Int(primary=True)
     name = Unicode()
 
     # Basic login data
