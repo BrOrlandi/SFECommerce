@@ -37,7 +37,6 @@ DROP TABLE IF EXISTS sfec_category;
 CREATE TABLE sfec_category(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    description TEXT
 );
 
 DROP TABLE IF EXISTS sfec_product;
