@@ -20,8 +20,6 @@ class BaseUsersResource(BaseResource):
         'register_date': DateTimeInt,
     }
 
-    order_by = User.name
-
     filters = {
         'name': User.name,
         'email': User.email,
@@ -33,11 +31,15 @@ class UsersResource(BaseUsersResource):
 
     table = User
 
+    order_by = User.name
+
 
 @FinalResource
 class AdminsResource(BaseUsersResource):
 
     table = AdminView
+
+    order_by = AdminView.name
 
 
 @FinalResource
@@ -45,11 +47,15 @@ class VendorsResource(BaseUsersResource):
 
     table = VendorView
 
+    order_by = VendorView.name
+
 
 @FinalResource
 class CustomersResource(BaseUsersResource):
 
     table = CustomerView
+
+    order_by = CustomerView.name
 
 
 def register_user_resource():
