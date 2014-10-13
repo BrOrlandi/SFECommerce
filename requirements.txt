@@ -1,8 +1,8 @@
 flask
 flask-restful
 
-# db module
-psycopg2==2.4.5
+# IPYthon module
+ipython
 
 # ORM Module
 storm

@@ -7,6 +7,7 @@ from storm.tracer import debug
 
 from sfec.database.runtime import *
 from sfec.models.user import *
+from app import app
 
 
 if __name__ == '__main__':
@@ -19,6 +20,7 @@ if __name__ == '__main__':
         print "'OPTIONS' is one of:"
         print ''
         print 'create_user <email> <name>                  New user'
+        print 'dbinit                                      Execute the SQL, recreate the schema.'
         print '--sql                                       Show sql commands'
         print '--console                                   Enter console mode'
         print ''
@@ -36,6 +38,19 @@ if __name__ == '__main__':
         user.set_password(unicode(raw_input('password: ')))
         store.add(user)
         store.commit()
+
+    if 'dbinit' in sys.argv:
+        sqlfile = open("./data/sql/schema-00.sql","r")
+        schema = sqlfile.read()
+        sqlfile.close()
+
+        statements = schema.split(";")
+
+        for stmt in statements:
+            store.execute(stmt)
+        store.commit()        
+
+        print "DB cleanead and initialized"
 
     if '--console' in sys.argv:
         IPython.embed()

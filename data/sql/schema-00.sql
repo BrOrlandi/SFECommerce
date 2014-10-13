@@ -1,45 +1,52 @@
+--tDROP TABLE IF EXISTS sfec_user;
 CREATE TABLE sfec_user(
-    id serial NOT NULL PRIMARY KEY,
-    name text NOT NULL,
-    email text NOT NULL UNIQUE,
-    password text NOT NULL,
-    birth_date timestamp,
-    register_date timestamp NOT NULL,
-    type int
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    birth_date INTEGER,
+    register_date INTEGER NOT NULL,
+    type INTEGER
 );
 
+--tDROP TABLE IF EXISTS scef_address;
 CREATE TABLE scef_address(
-    state text NOT NULL,
-    city text NOT NULL,
-    address text NOT NULL,
-    zip text NOT NULL,
-    user_id bigint NOT NULL REFERENCES sfec_user(id)
+    state TEXT NOT NULL,
+    city TEXT NOT NULL,
+    address TEXT NOT NULL,
+    zip TEXT NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES sfec_user(id)
 );
 
+--tDROP TABLE IF EXISTS sfec_customer;
 CREATE TABLE sfec_customer(
-    id bigint NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
+    id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
+--tDROP TABLE IF EXISTS sfec_vendor;
 CREATE TABLE sfec_vendor(
-    id bigint NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
+    id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
+--tDROP TABLE IF EXISTS sfec_admin;
 CREATE TABLE sfec_admin(
-    id bigint NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
+    id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
+--tDROP TABLE IF EXISTS sfec_category;
 CREATE TABLE sfec_category(
-    id serial NOT NULL PRIMARY KEY,
-    name text NOT NULL,
-    description text
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT
 );
 
+--tDROP TABLE IF EXISTS sfec_product;
 CREATE TABLE sfec_product(
-    id serial NOT NULL PRIMARY KEY,
-    name text NOT NULL,
-    stock int NOT NULL,
-    description text NOT NULL,
-    price float NOT NULL,
-    is_available boolean,
-    category_id bigint NOT NULL REFERENCES sfec_category(id)
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    stock INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    price REAL NOT NULL,
+    is_available INTEGER,
+    category_id INTEGER NOT NULL REFERENCES sfec_category(id)
 );
