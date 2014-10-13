@@ -37,9 +37,10 @@ class BaseModel(Storm):
     def dict(self):
         """Returns this object as a dictionary"""
         dictionary = {}
-        for key, value in self.__class__.__dict__.iteritems():
-            if isinstance(value, Property):
-                dictionary[key] = getattr(self, key)
+        for cls in self.__class__.__mro__:
+            for key, value in cls.__dict__.iteritems():
+                if isinstance(value, Property):
+                    dictionary[key] = getattr(self, key)
         return dictionary
 
     def json(self):
