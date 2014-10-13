@@ -2,6 +2,7 @@
 
 from sfec.database.settings import default_settings
 
+# Singleton pattern, grants only one conection to the database.
 _default_store = None
 
 
