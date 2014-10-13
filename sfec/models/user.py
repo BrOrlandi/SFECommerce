@@ -6,6 +6,7 @@ from hashlib import sha512
 from flask import request
 from storm.expr import And
 from storm.properties import DateTime, Unicode
+from storm.references import Reference
 
 from sfec.models.base import BaseModel
 
@@ -13,6 +14,7 @@ from sfec.models.base import BaseModel
 class User(BaseModel):
 
     __storm_table__ = "sfec_user"
+
     name = Unicode()
 
     # Basic login data
@@ -21,8 +23,6 @@ class User(BaseModel):
 
     birth_date = DateTime()
     register_date = DateTime()
-
-    # TODO Missing type attribute
 
     def __init__(self):
         self.register_date = datetime.now()
@@ -57,3 +57,24 @@ class User(BaseModel):
 
     def set_password(self, password):
         self.password = self.hash(password)
+
+
+class Admin(BaseModel):
+
+    __storm_table__ = "sfec_admin"
+
+    user = Reference('Admin.id', 'User.id')
+
+
+class Vendor(BaseModel):
+
+    __storm_table__ = "sfec_vendor"
+
+    user = Reference('Vendor.id', 'User.id')
+
+
+class Customer(BaseModel):
+
+    __storm_table__ = "sfec_customer"
+
+    user = Reference('Customer.id', 'User.id')

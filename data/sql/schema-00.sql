@@ -50,3 +50,18 @@ CREATE TABLE sfec_product(
     is_available INTEGER,
     category_id INTEGER NOT NULL REFERENCES sfec_category(id)
 );
+
+DROP VIEW IF EXISTS sfec_admin_view;
+CREATE VIEW sfec_admin_view AS
+SELECT * FROM sfec_admin a
+JOIN sfec_user u ON a.id = u.id;
+
+DROP VIEW IF EXISTS sfec_vendor_view;
+CREATE VIEW sfec_vendor_view AS
+SELECT * FROM sfec_vendor v
+JOIN sfec_user u ON v.id = u.id;
+
+DROP VIEW IF EXISTS sfec_customer_view;
+CREATE VIEW sfec_customer_view AS
+SELECT * FROM sfec_customer c
+JOIN sfec_user u ON c.id = u.id;
