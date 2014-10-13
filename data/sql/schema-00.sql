@@ -1,4 +1,4 @@
---tDROP TABLE IF EXISTS sfec_user;
+DROP TABLE IF EXISTS sfec_user;
 CREATE TABLE sfec_user(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE sfec_user(
     type INTEGER
 );
 
---tDROP TABLE IF EXISTS scef_address;
+DROP TABLE IF EXISTS scef_address;
 CREATE TABLE scef_address(
     state TEXT NOT NULL,
     city TEXT NOT NULL,
@@ -18,29 +18,29 @@ CREATE TABLE scef_address(
     user_id INTEGER NOT NULL REFERENCES sfec_user(id)
 );
 
---tDROP TABLE IF EXISTS sfec_customer;
+DROP TABLE IF EXISTS sfec_customer;
 CREATE TABLE sfec_customer(
     id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
---tDROP TABLE IF EXISTS sfec_vendor;
+DROP TABLE IF EXISTS sfec_vendor;
 CREATE TABLE sfec_vendor(
     id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
---tDROP TABLE IF EXISTS sfec_admin;
+DROP TABLE IF EXISTS sfec_admin;
 CREATE TABLE sfec_admin(
     id INTEGER NOT NULL REFERENCES sfec_user(id) PRIMARY KEY
 );
 
---tDROP TABLE IF EXISTS sfec_category;
+DROP TABLE IF EXISTS sfec_category;
 CREATE TABLE sfec_category(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     description TEXT
 );
 
---tDROP TABLE IF EXISTS sfec_product;
+DROP TABLE IF EXISTS sfec_product;
 CREATE TABLE sfec_product(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
