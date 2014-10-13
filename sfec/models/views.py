@@ -15,4 +15,4 @@ class VendorView(User):
 
 class CustomerView(User):
 
-    __storm_table__ = "sfec_vendor_view"
+    __storm_table__ = "sfec_customer_view"
