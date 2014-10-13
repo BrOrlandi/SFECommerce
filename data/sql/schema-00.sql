@@ -9,8 +9,8 @@ CREATE TABLE sfec_user(
     type INTEGER
 );
 
-DROP TABLE IF EXISTS scef_address;
-CREATE TABLE scef_address(
+DROP TABLE IF EXISTS sfec_address;
+CREATE TABLE sfec_address(
     state TEXT NOT NULL,
     city TEXT NOT NULL,
     address TEXT NOT NULL,
