@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import random
 import sys
 
 import IPython
@@ -25,6 +26,7 @@ if __name__ == '__main__':
         print 'create_vendor <email> <name>                New vendor/salesperson'
         print 'create_customer <email> <name>              New customer'
         print 'dbinit                                      Execute the SQL, recreate the schema.'
+        print 'dbexample                                   Fill database with examples.'
         print '--sql                                       Show sql commands'
         print '--console                                   Enter console mode'
         print ''
@@ -75,6 +77,37 @@ if __name__ == '__main__':
         store.commit()
 
         print "DB cleanead and initialized"
+
+    if 'dbexample' in sys.argv:
+        user_types = [Admin, Vendor, Customer]
+        with open('data/samples/names.txt') as names_file:
+            names = names_file.read().split('\n')
+        with open('data/samples/surnames.txt') as surnames_file:
+            surnames = surnames_file.read().split('\n')
+        with open('data/samples/domains.txt') as domains_file:
+            domains = domains_file.read().split('\n')
+
+        for i in xrange(25):
+            # Generate example data
+            full_name = random.choice(names) + ' ' + random.choice(surnames)
+            lower_name = full_name.lower()
+            email = lower_name.replace(' ', '.') + '@' + random.choice(domains)
+
+            # Apply data on database
+            user = User()
+            user.email = unicode(email)
+            user.name = unicode(full_name)
+            user.set_password(unicode('foobar'))
+            store.add(user)
+
+            user_type = random.choice(user_types)
+            user_cls = user_type()
+            user_cls.user = user
+            store.add(user_cls)
+
+        store.commit()
+
+        print "DB filled with examples"
 
     if '--console' in sys.argv:
         IPython.embed()
