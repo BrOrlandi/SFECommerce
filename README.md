@@ -6,8 +6,8 @@ Simple Flask E-Commerce (SFEC) developed with Flask Python microframework for ac
 Authors
 -------
 
-[Bruno Orlandi](https://github.com/BrOrlandi) (brorlandi@gmail.com)
-[Nihey Takizawa](https://github.com/nihey) (nihey.takizawa@gmail.com)
+- [Bruno Orlandi](https://github.com/BrOrlandi) (brorlandi@gmail.com)
+- [Nihey Takizawa](https://github.com/nihey) (nihey.takizawa@gmail.com)
 
 UML
 ---
@@ -25,8 +25,7 @@ Must have **pip** installed!
 * `make python-deps` # Install python dependencies
 
 # Database
-* `createuser sfec` # Create a SFEC postgres database user
-* `make init-db` # Appy the database schema
+* `python sfecadmin.py dbinit`  Will create the SQL Schema and create the database.sqlite
 
 # Executing
 * `python server.py`
