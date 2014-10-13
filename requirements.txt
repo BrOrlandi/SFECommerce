@@ -1,4 +1,12 @@
 flask
 flask-restful
+
+# db module
 psycopg2==2.4.5
+
+# ORM Module
 storm
+
+# to use "make check"
+pyflakes
+pep8
