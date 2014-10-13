@@ -6,7 +6,6 @@ from hashlib import sha512
 from flask import request
 from storm.expr import And
 from storm.properties import DateTime, Unicode
-from storm.locals import Int
 
 from sfec.models.base import BaseModel
 

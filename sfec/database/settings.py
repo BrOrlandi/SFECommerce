@@ -2,7 +2,6 @@
 
 from storm.database import create_database
 from storm.store import Store
-from storm.uri import URI
 
 from app import app
 
