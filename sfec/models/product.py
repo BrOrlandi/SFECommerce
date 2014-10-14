@@ -24,6 +24,14 @@ class Product(BaseModel):
     categories = ReferenceSet('Product.id', 'CategoryProduct.product_id',
                               'CategoryProduct.category_id', 'Category.id')
 
+    #
+    # Implicit Properties
+    #
+
+    @property
+    def category_list(self):
+        return [c.name for c in self.categories]
+
 
 class Category(BaseModel):
 
