@@ -32,3 +32,7 @@ Must have **pip** installed!
 
 # Executing
 * `python server.py`
+
+# Contributing
+* We are currentlt not accepting pull requests (they may be accepted after
+* december 2014).
