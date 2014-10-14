@@ -50,6 +50,13 @@ CREATE TABLE sfec_product(
     category_id INTEGER NOT NULL REFERENCES sfec_category(id)
 );
 
+DROP TABLE IF EXISTS sfec_category_product;
+CREATE TABLE sfec_category_product(
+    category_id INTEGER,
+    product_id INTEGER,
+    PRIMARY KEY (category_id,product_id)
+);
+
 DROP VIEW IF EXISTS sfec_admin_view;
 CREATE VIEW sfec_admin_view AS
 SELECT * FROM sfec_admin a
