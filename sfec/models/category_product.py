@@ -1,5 +1,3 @@
-
-from sfec.models.base import BaseModel
 from storm.locals import Int
 from storm.base import Storm
 

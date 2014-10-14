@@ -13,5 +13,7 @@ class Product(BaseModel):
 	price = Decimal()
 	is_available = Bool(default=False)
 
-	categories = ReferenceSet("Product.id", CategoryProduct.product_id, CategoryProduct.category_id, "Category.id")
-
+	categories = ReferenceSet("Product.id", 
+								CategoryProduct.product_id, 
+								CategoryProduct.category_id, 
+								"Category.id")
