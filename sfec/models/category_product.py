@@ -1,6 +1,7 @@
 
 from sfec.models.base import BaseModel
-from storm.properties import Unicode
+from storm.locals import Int
+from storm.base import Storm
 
 class CategoryProduct(Storm):
 

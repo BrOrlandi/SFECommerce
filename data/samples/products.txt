@@ -1,0 +1,19 @@
+Processador AMD FX-6300 3.5Ghz AM3+ Black Edition,10,Sample Product,388.12,True
+Processador Intel Ivy Bridge Core i5-3330 3.00GHz 6MB LGA1155,10,Sample Product,576.35,True
+Processador Intel Core i5-4460 3.2GHz (3.4GHz Max Turbo) 6MB LGA 1150 c/ Intel HD Graphics,10,Sample Product,705.76,True
+Processador AMD A4 4000 Dual-Core 3.0GHz (3.2GHz Max Turbo) - AD4000OKHLBOX,10,Sample Product,94.00,True
+
+Memoria Kingston HyperX Savage 8GB (2x4GB) 2400MHz DDR3 CL11 Vermelha HX324C11SRK2/8,10,Sample Product,694.00,True
+Memoria Kingston HyperX Impact 16GB (2x8GB) 1600MHz DDR3 CL9 HX316LS9IBK2/16,10,Sample Product,1040.90,True
+Memoria Patrior Viper 16GB (2x8GB) 2400Mz DDR3 PV316G240C0KBL Azul,10,Sample Product,870.90,True
+Memoria Kingston HyperX Impact 8GB (2x4GB) 1600MHz DDR3 CL9 HX316LS9IBK2/8,10,Sample Product,521.90,True
+
+Placa de Video MSI GeForce GTX 780Ti Twin Frozr 3GB DDR5 384 Bits PCI-Express 3.0 780TI GAMING 3G,10,Sample Product,3042.90,True
+Placa de Video MSI Radeon R9 295X2 8GB DDR5 512 Bits x2 PCI-Express 3.0 x16 4K DirectX 11.2 R9 295X2 8GD5,10,Sample Product,5938.90,True
+Placa de Video MSI Radeon R9 290X Twin Frozr 4GB DDR5 512 Bits PCI-Express 3.0 x16 R9 290X GAMING 4G,10,Sample Product,2515.90,True
+Placa de Video VGA Gigabyte Radeon R5 230 1GB DDR3 64 Bits PCI-Express 2.1 GV-R523D3-1GL,10,Sample Product,170.80,True
+
+HD WD SATA 3.5 6TB 64MB Cache WD60EFRX-68MYMN1 NAS Red,10,Sample Product,1795.90,True
+QNAP NAS Storage para 2 HDs TS-212-E,10,Sample Product,1419.90,True
+G-Technology HD Portatil G Drive Mobile USB 3.0 1TB 0G03040,10,Sample Product,1174.90,True
+HD Externo Portatil LaCie Rugged Thunderbolt 2TB USB 3.0 9000489,10,Sample Product,2179.90,True

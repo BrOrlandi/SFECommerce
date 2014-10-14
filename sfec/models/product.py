@@ -1,6 +1,7 @@
 
 from sfec.models.base import BaseModel
-from storm.locals import Unicode, Int, Float, Bool
+from storm.locals import Unicode, Int, Decimal, Bool, ReferenceSet
+from category_product import CategoryProduct
 
 class Product(BaseModel):
 
@@ -9,7 +10,8 @@ class Product(BaseModel):
 	name = Unicode()
 	stock = Int(default=0)
 	description = Unicode()
-	price = Decimal(default=0.0)
-	is_available = Bool(default=false)
+	price = Decimal()
+	is_available = Bool(default=False)
 
-    categories = ReferenceSet(Product.id, CategoryProduct.product_id, CategoryProduct.category_id, "Category.id")
+	categories = ReferenceSet("Product.id", CategoryProduct.product_id, CategoryProduct.category_id, "Category.id")
+

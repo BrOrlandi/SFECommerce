@@ -36,7 +36,7 @@ CREATE TABLE sfec_admin(
 DROP TABLE IF EXISTS sfec_category;
 CREATE TABLE sfec_category(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS sfec_product;
@@ -45,9 +45,8 @@ CREATE TABLE sfec_product(
     name TEXT NOT NULL,
     stock INTEGER NOT NULL,
     description TEXT NOT NULL,
-    price REAL NOT NULL,
-    is_available INTEGER,
-    category_id INTEGER NOT NULL REFERENCES sfec_category(id)
+    price TEXT NOT NULL,
+    is_available INTEGER
 );
 
 DROP TABLE IF EXISTS sfec_category_product;

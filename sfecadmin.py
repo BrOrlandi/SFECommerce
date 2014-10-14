@@ -9,6 +9,11 @@ from storm.tracer import debug
 from sfec.database.runtime import *
 from sfec.models.user import *
 from sfec.models.views import *
+
+from sfec.models.category import *
+from sfec.models.product import *
+from decimal import Decimal
+
 from app import app
 
 
@@ -104,6 +109,33 @@ if __name__ == '__main__':
             user_cls = user_type()
             user_cls.user = user
             store.add(user_cls)
+
+
+        # categories
+
+        c1 = Category(u"Hardware")
+
+        with open('data/samples/categories.txt') as categories_file:
+            categories = categories_file.read().split('\n')
+        with open('data/samples/products.txt') as products_file:
+            products = products_file.read().split('\n\n')
+
+        clength = len(categories)
+        for i in xrange(clength):
+            c = Category(unicode(categories[i]))
+            pc = products[i].split("\n")
+            for j in xrange(len(pc)):
+                data = pc[j].split(",")
+
+                p = Product()
+                p.name = unicode(data[0])
+                p.stock = int(data[1])
+                p.description = unicode(data[2])
+                p.price = Decimal(float(data[3]))
+                p.is_available = bool(data[4])
+                p.categories.add(c)
+                p.categories.add(c1)
+                store.add(p)
 
         store.commit()
 

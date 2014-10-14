@@ -1,0 +1,4 @@
+Processadores
+Memoria RAM
+Placa de video (VGA)
+Disco Rigido (HD)
