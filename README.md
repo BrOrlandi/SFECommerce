@@ -8,6 +8,9 @@ Authors
 
 - [Bruno Orlandi](https://github.com/BrOrlandi) (brorlandi@gmail.com)
 - [Nihey Takizawa](https://github.com/nihey) (nihey.takizawa@gmail.com)
+- [Gustavo Consentini](https://github.com/gconsentini) (gustavoconsentini@gmail.com)
+
+
 
 UML
 ---
