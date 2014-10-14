@@ -70,3 +70,27 @@ DROP VIEW IF EXISTS sfec_customer_view;
 CREATE VIEW sfec_customer_view AS
 SELECT * FROM sfec_customer c
 JOIN sfec_user u ON c.id = u.id;
+
+DROP TABLE IF EXISTS sfec_customer_service;
+CREATE TABLE sfec_customer_service(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL REFERENCES sfec_order(id),
+    customer_id INTEGER NOT NULL REFERENCES sfec_customer(id),
+    vendor_id INTEGER NOT NULL REFERENCES sfec_vendor(id)
+);
+
+DROP TABLE IF EXISTS sfec_order;
+CREATE TABLE sfec_order(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    status TEXT NOT NULL,
+    customer_service_id INTEGER NOT NULL REFERENCES sfec_customer_service(id)
+);
+
+DROP TABLE IF EXISTS sfec_order_product;
+CREATE TABLE sfec_order_product(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    quantity INTEGER NOT NULL,
+    order_id INTEGER NOT NULL REFERENCES sfec_order(id),
+    product_id INTEGER NOT NULL REFERENCES sfec_product(id),
+    UNIQUE(order_id, product_id) ON CONFLICT REPLACE -- Previnir que um produto seja adicionado mais de uma vez a um mesmo pedido.
+);
