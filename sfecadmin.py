@@ -10,7 +10,6 @@ from sfec.database.runtime import *
 from sfec.models.user import *
 from sfec.models.views import *
 
-from sfec.models.category import *
 from sfec.models.product import *
 from decimal import Decimal
 

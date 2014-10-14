@@ -3,9 +3,11 @@
 from flask import render_template
 
 from app import app
+from sfec.api.product import register_product_resource
 from sfec.api.user import register_user_resource
 
 
+register_product_resource()
 register_user_resource()
 
 
