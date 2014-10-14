@@ -3,7 +3,7 @@
 from flask import request
 from flask.ext.restful import Resource
 from storm.properties import Unicode, Int
-from storm.expr import And
+from storm.expr import And, Like
 
 from sfec.database.runtime import get_default_store
 
@@ -29,11 +29,12 @@ class BaseResource(Resource):
     def query(self, column, value):
         """Returns the query for each column type"""
         cls = column.cls
-        column_type = type(cls.__dict__.get(column.name))
-        if column_type is Unicode:
-            return column == unicode(value)
-        if column_type is Int:
-            return column == int(value)
+        for column_cls in cls.__mro__:
+            column_type = type(column_cls.__dict__.get(column.name))
+            if column_type is Unicode:
+                return Like(column, '%%%s%%' % value, case_sensitive=False)
+            if column_type is Int:
+                return column == int(value)
         raise
 
     def request_filters(self):

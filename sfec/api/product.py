@@ -26,6 +26,7 @@ class ProductResource(BaseResource):
     order_by = Product.name
 
     filters = {
+        'id': Product.id,
         'name': Product.name,
     }
 
