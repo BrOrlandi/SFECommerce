@@ -18,5 +18,6 @@ python-deps:
 check:
 	pyflakes $(PYTHON_SRC)
 	pep8 $(PYTHON_SRC) --max-line-length=80
+	python sfecadmin.py test
 
 .PHONY: server deps system-deps python-deps check

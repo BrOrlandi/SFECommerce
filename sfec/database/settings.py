@@ -23,3 +23,4 @@ class DatabaseSettings(object):
 config = app.config
 
 default_settings = DatabaseSettings(config['DB_FILE'])
+test_settings = DatabaseSettings(config['TEST_DB_FILE'])

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from decimal import Decimal
 import random
 import sys
+from unittest import TestLoader, TextTestRunner
 
 import IPython
 from storm.tracer import debug
@@ -9,11 +11,7 @@ from storm.tracer import debug
 from sfec.database.runtime import *
 from sfec.models.user import *
 from sfec.models.views import *
-
 from sfec.models.product import *
-from decimal import Decimal
-
-from app import app
 
 
 if __name__ == '__main__':
@@ -31,6 +29,7 @@ if __name__ == '__main__':
         print 'create_customer <email> <name>              New customer'
         print 'dbinit                                      Execute the SQL, recreate the schema.'
         print 'dbexample                                   Fill database with examples.'
+        print 'test                                        Execute tests'
         print '--sql                                       Show sql commands'
         print '--console                                   Enter console mode'
         print ''
@@ -139,6 +138,22 @@ if __name__ == '__main__':
         store.commit()
 
         print "DB filled with examples"
+
+    if 'test' in sys.argv:
+        print 'Generating Test DB'
+
+        sqlfile = open("./data/sql/schema-00.sql","r")
+        schema = sqlfile.read()
+        sqlfile.close()
+
+        statements = schema.split(";")
+
+        for stmt in statements:
+            get_test_store().execute(stmt)
+        get_test_store().commit()
+
+        suite = TestLoader().discover('tests', pattern='*_test.py')
+        TextTestRunner(verbosity=2).run(suite)
 
     if '--console' in sys.argv:
         IPython.embed()
