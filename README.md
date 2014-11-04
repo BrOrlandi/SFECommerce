@@ -17,21 +17,27 @@ UML
 
 ![UML](https://raw.githubusercontent.com/BrOrlandi/SFECommerce/master/uml_diagram.png "UML")
 
-Setup Instructions
-------------------
+# Setup Instructions
 
 Must have **pip** installed!
 
-# Dependencies
+Dependencies
+------------------
 * `make system-deps` # Install system dependencies (may require root)
 * Create a virtualenv called `env` and activate it.
 * `make python-deps` # Install python dependencies
 
-# Database
+Database
+------------------
 * `python sfecadmin.py dbinit`  Will create the SQL Schema and create the database.sqlite
 
-# Executing
+Executing
+------------------
 * `python server.py`
+
+# Admin
+
+Use `python sfecadmin.py` to see all admin commands.
 
 # Contributing
 * We are currentlt not accepting pull requests (they may be accepted after
