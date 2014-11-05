@@ -23,6 +23,9 @@ class BaseResource(Resource):
     # Limit of elements that will be served
     limit = None
 
+    # Offset of elements that will be served
+    offset = None
+
     # Filters that may be used for the resource
     filters = {}
 
@@ -55,6 +58,20 @@ class BaseResource(Resource):
     def is_count(self):
         return request.args.get('c', None) is not None
 
+    def has_limit(self):
+        l = request.args.get('l', None)
+        if l is not None:
+            self.limit = int(l)
+            return True
+        return False
+
+    def has_offset(self):
+        o = request.args.get('o', None)
+        if o is not None:
+            self.offset = int(o)
+            return True
+        return False
+
     def get(self, id=None):
         """Serves data via the GET method"""
         store = get_default_store()
@@ -71,8 +88,10 @@ class BaseResource(Resource):
             data = data.find(filters)
         if self.order_by:
             data = data.order_by(self.order_by)
-        if self.limit:
-            data = data.order_by(self.limit)
+        if self.has_limit():
+            data = data.config(limit=self.limit)
+        if self.has_offset():
+            data = data.config(offset=self.offset)
         if self.is_count():
             return data.count()
 
