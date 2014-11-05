@@ -5,7 +5,7 @@ from flask.ext.restful import fields
 from app import api
 from sfec.api.base import BaseResource
 from sfec.api.decorators import FinalResource
-from sfec.models.product import Product
+from sfec.models.product import Product, Category
 
 
 @FinalResource
@@ -30,6 +30,23 @@ class ProductResource(BaseResource):
         'name': Product.name,
     }
 
+@FinalResource
+class CategoryResource(BaseResource):
+
+    properties = {
+        'name': fields.String
+    }
+
+    table = Category
+
+    order_by = Category.name
+
+    filters = {
+        'name': Category.name,
+    }
+
+
 
 def register_product_resource():
     api.add_resource(ProductResource, '/products', endpoint='products')
+    api.add_resource(CategoryResource, '/categories', endpoint='categories')
