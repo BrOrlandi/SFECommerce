@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from decimal import Decimal
 import random
 import sys
 from unittest import TestLoader, TextTestRunner
@@ -12,6 +11,7 @@ from sfec.database.runtime import *
 from sfec.models.user import *
 from sfec.models.views import *
 from sfec.models.product import *
+from decimal import Decimal
 
 
 if __name__ == '__main__':
