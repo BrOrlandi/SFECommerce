@@ -9,3 +9,4 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 api = Api(app, prefix='/api')
+app.secret_key = "this secret key is for development purposes only"

@@ -5,11 +5,13 @@ from flask import render_template
 from app import app
 from sfec.api.product import register_product_resource
 from sfec.api.user import register_user_resource
+from sfec.controllers.user import user_api
 
 
 register_product_resource()
 register_user_resource()
 
+app.register_blueprint(user_api)
 
 @app.route('/')
 def index():
