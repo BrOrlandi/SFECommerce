@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import re
-from flask import Blueprint, g, session, request
+from flask import Blueprint, g, session, request, abort
 
 from sfec.models.user import *
+from sfec.models.views import *
 from sfec.database.runtime import get_default_store
+from sfec.controllers.decorators import *
 
 user_api = Blueprint('user_api', __name__)
 
@@ -50,11 +52,37 @@ def login():
 	return "False"
 
 @user_api.route('/logout', methods=['GET'])
+@require_login
 def logout():
 	session.pop('user',None)
 	return "True"
 
-@user_api.route('/users/<int:user_id>/set_vendor')
+@user_api.route('/users/<int:user_id>/set_vendor', methods=['GET'])
+@require_admin
 def set_vendor(user_id):
 	store = get_default_store()
-	
+	user = store.find(User, User.id == user_id).one()
+	if user is None:
+		abort(404)
+	user = store.find(VendorView, VendorView.id == user_id).one()
+	if user is not None:
+		return "Already Vendor!"
+	vendor = Vendor()
+	vendor.user = user
+	store.add(vendor)
+	return "True"
+
+@user_api.route('/users/<int:user_id>/set_admin', methods=['GET'])
+@require_admin
+def set_admin(user_id):
+	store = get_default_store()
+	user = store.find(User, User.id == user_id).one()
+	if user is None:
+		abort(404)
+	user = store.find(AdminView, AdminView.id == user_id).one()
+	if user is not None:
+		return "Already Admin!"
+	admin = Admin()
+	admin.user = user
+	store.add(admin)
+	return "True"

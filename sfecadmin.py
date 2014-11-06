@@ -82,7 +82,7 @@ if __name__ == '__main__':
         print "DB cleanead and initialized"
 
     if 'dbexample' in sys.argv:
-        user_types = [Admin, Vendor, Customer]
+        user_types = [Vendor, Customer]
         with open('data/samples/names.txt') as names_file:
             names = names_file.read().split('\n')
         with open('data/samples/surnames.txt') as surnames_file:
@@ -107,6 +107,31 @@ if __name__ == '__main__':
             user_cls = user_type()
             user_cls.user = user
             store.add(user_cls)
+
+        # default users
+        u = User()
+        u.name = u"Super Admin"
+        u.email = u"admin@admin.net"
+        u.set_password(u"123")
+        a = Admin()
+        a.user = u
+        store.add(a)
+
+        u = User()
+        u.name = u"Master of Sales"
+        u.email = u"master@sales.net"
+        u.set_password(u"123")
+        v = Vendor()
+        v.user = u
+        store.add(v)
+
+        u = User()
+        u.name = u"Fanboy Customer"
+        u.email = u"fan@boy.net"
+        u.set_password(u"123")
+        c = Customer()
+        c.user = u
+        store.add(c)
 
 
         # categories
