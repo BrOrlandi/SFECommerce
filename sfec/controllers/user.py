@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import re
-from flask import Blueprint, g, session, request, abort
+from flask import Blueprint, g, session, request, abort, Response
+
+import json
 
 from sfec.models.user import *
 from sfec.models.views import *
 from sfec.database.runtime import get_default_store
 from sfec.controllers.decorators import *
+from time import mktime
 
 user_api = Blueprint('user_api', __name__)
 
@@ -54,12 +57,14 @@ def login():
 @user_api.route('/logout', methods=['GET'])
 @require_login
 def logout():
+	""" Logout the user """
 	session.pop('user',None)
 	return "True"
 
 @user_api.route('/users/<int:user_id>/set_vendor', methods=['GET'])
 @require_admin
 def set_vendor(user_id):
+	""" Turn an user into a Vendor """
 	store = get_default_store()
 	user = store.find(User, User.id == user_id).one()
 	if user is None:
@@ -75,6 +80,7 @@ def set_vendor(user_id):
 @user_api.route('/users/<int:user_id>/set_admin', methods=['GET'])
 @require_admin
 def set_admin(user_id):
+	""" Turn an user into a Admin """
 	store = get_default_store()
 	user = store.find(User, User.id == user_id).one()
 	if user is None:
@@ -86,3 +92,20 @@ def set_admin(user_id):
 	admin.user = user
 	store.add(admin)
 	return "True"
+
+@user_api.route('/me', methods=['GET'])
+@require_login
+def me():
+	""" Get data of the logged user """
+	store = get_default_store()
+	user_id = session['user']
+	user = store.find(User, User.id == user_id).one()
+	if user is None:
+		abort(404)
+	userd = {'id': user.id,
+        'name': user.name,
+        'email': user.email,
+        'birth_date': int(mktime(user.birth_date.timetuple()) * 1000),
+        'register_date': int(mktime(user.register_date.timetuple()) * 1000)}
+	json_str = json.dumps(userd)
+	return Response(json_str, mimetype='application/json')

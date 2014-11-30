@@ -3,6 +3,7 @@
 import random
 import sys
 from unittest import TestLoader, TextTestRunner
+from datetime import datetime
 
 import IPython
 from storm.tracer import debug
@@ -101,6 +102,7 @@ if __name__ == '__main__':
             user.email = unicode(email)
             user.name = unicode(full_name)
             user.set_password(unicode('foobar'))
+            user.birth_date = datetime.now()
             store.add(user)
 
             user_type = random.choice(user_types)
@@ -112,6 +114,7 @@ if __name__ == '__main__':
         u = User()
         u.name = u"Super Admin"
         u.email = u"admin@admin.net"
+        u.birth_date = datetime.now()
         u.set_password(u"123")
         a = Admin()
         a.user = u
@@ -120,6 +123,7 @@ if __name__ == '__main__':
         u = User()
         u.name = u"Master of Sales"
         u.email = u"master@sales.net"
+        u.birth_date = datetime.now()
         u.set_password(u"123")
         v = Vendor()
         v.user = u
@@ -128,6 +132,7 @@ if __name__ == '__main__':
         u = User()
         u.name = u"Fanboy Customer"
         u.email = u"fan@boy.net"
+        u.birth_date = datetime.now()
         u.set_password(u"123")
         c = Customer()
         c.user = u
