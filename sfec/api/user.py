@@ -8,6 +8,7 @@ from sfec.api.decorators import FinalResource
 from sfec.api.fields import DateTimeInt
 from sfec.models.user import User
 from sfec.models.views import AdminView, VendorView, CustomerView
+from sfec.controllers.decorators import require_admin
 
 
 class BaseUsersResource(BaseResource):
@@ -19,6 +20,13 @@ class BaseUsersResource(BaseResource):
         'birth_date': DateTimeInt,
         'register_date': DateTimeInt,
     }
+
+    # tentativa de impedir que qualquer usuário tenha acesso a lista de usuários, apenas admins
+    #@require_admin
+    #def get(self, id=None):
+    #    x = super(BaseResource,self)
+    #    print x
+    #    return x.get(id)
 
 
 @FinalResource
