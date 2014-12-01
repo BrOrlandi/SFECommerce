@@ -25,7 +25,10 @@ def require_vendor(function):
 		store = get_default_store()
 		vendor = store.find(Vendor, Vendor.id == user_id).one()
 		if vendor is None:
-			abort(403)
+			# try as admin
+			admin = store.find(Admin, Admin.id == user_id).one()
+			if admin is None:
+				abort(403)
 			
 		return function(*args, **kwargs)        
 	return wrapper

@@ -14,6 +14,7 @@ from time import mktime
 order_api = Blueprint('order_api', __name__)
 
 def create_user_cart():
+	store = get_default_store()
 	user = store.find(User, User.id == session['user']).one()
 	# create new cart
 	cart = Cart(user)
@@ -27,7 +28,6 @@ def get_order_products(order):
 	order_products = []
 	for p in prods:
 		pdict = p.product.dict()
-		pdict['price'] = float(pdict['price']) # price is decimal
 		op = {'order_product_id': p.id,'product': pdict, 'quantity': p.quantity}
 		order_products.append(op)
 	return order_products
@@ -78,4 +78,17 @@ def remove_product():
 	store.commit()
 	return "Success"
 
-# TODO close order
+@order_api.route("/cart/close_order", methods=['GET'])
+@require_login
+def close_order():
+	""" Close the cart order """
+	store = get_default_store()
+	cart = store.find(Cart, Cart.user_id == session['user']).one()
+	if cart is None:
+		return "Fail" # can't close an empty order
+	if cart.order.products.count() == 0:
+		return "Fail" # can't close an empty order
+	cart.order.status = u"Awaiting Payment"
+	store.remove(cart)
+
+	return "Success"
