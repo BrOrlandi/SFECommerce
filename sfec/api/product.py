@@ -6,6 +6,9 @@ from app import api
 from sfec.api.base import BaseResource
 from sfec.api.decorators import FinalResource
 from sfec.models.product import Product, Category
+from flask.ext.restful import reqparse
+from sfec.database.runtime import get_default_store
+from sfec.controllers.decorators import require_vendor
 
 
 @FinalResource
@@ -42,8 +45,48 @@ class CategoryResource(BaseResource):
     order_by = Category.name
 
     filters = {
+        'id': fields.Integer,
         'name': Category.name,
     }
+
+    @require_vendor
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=unicode, required=True)
+        args = parser.parse_args()
+        c = Category(args['name'])
+        store = get_default_store()
+        store.add(c)
+        store.commit()
+        return "Success",201
+
+    @require_vendor
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=int, required=True)
+        args = parser.parse_args()
+        store = get_default_store()
+        c = store.find(Category, Category.id == args['id']).one()
+        if c is None:
+            return "Fail",404
+        store.remove(c)
+        store.commit()
+        return "Success",204
+
+    @require_vendor
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=int, required=True)
+        parser.add_argument('name', type=unicode, required=True)
+        args = parser.parse_args()
+        store = get_default_store()
+        c = store.find(Category, Category.id == args['id']).one()
+        if c is None:
+            return "Fail",404
+        c.name = args['name']
+        store.flush()
+        return "Success",201
+
 
 
 

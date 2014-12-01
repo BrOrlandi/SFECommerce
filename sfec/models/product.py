@@ -32,6 +32,11 @@ class Product(BaseModel):
     def category_list(self):
         return [c.name for c in self.categories]
 
+    def dict(self):
+        pdict = super(Product, self).dict()
+        pdict['price'] = float(pdict['price']) # price is decimal
+        return pdict
+
 
 class Category(BaseModel):
 
