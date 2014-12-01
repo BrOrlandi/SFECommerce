@@ -21,12 +21,9 @@ class BaseUsersResource(BaseResource):
         'register_date': DateTimeInt,
     }
 
-    # tentativa de impedir que qualquer usuário tenha acesso a lista de usuários, apenas admins
-    #@require_admin
-    #def get(self, id=None):
-    #    x = super(BaseResource,self)
-    #    print x
-    #    return x.get(id)
+    @require_admin
+    def get(self, id=None):
+        return super(BaseUsersResource,self).get(id=id)
 
 
 @FinalResource
