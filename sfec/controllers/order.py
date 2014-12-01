@@ -92,3 +92,15 @@ def close_order():
 	store.remove(cart)
 
 	return "Success"
+
+@order_api.route("/order/update_status", methods=['POST'])
+@require_vendor
+def update_status():
+	""" Update order Status """
+	store = get_default_store()
+	order = store.find(Order, Order.id == int(request.form['id'])).one()
+	if order is None:
+		return "Fail"
+	order.status = unicode(request.form['status'])
+	store.flush()
+	return "Success"
