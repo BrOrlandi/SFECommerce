@@ -32,11 +32,54 @@ class ProductResource(BaseResource):
         'id': Product.id,
         'name': Product.name,
     }
+"""
+    @require_vendor
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=unicode, required=True)
+        parser.add_argument('stock', type=int, required=True)
+        parser.add_argument('description', type=unicode, required=True)
+        parser.add_argument('price', type=float, required=True)
+        parser.add_argument('is_available', type=bool, required=True)
+        args = parser.parse_args()
+        c = Category(args['name'])
+        store = get_default_store()
+        store.add(c)
+        store.commit()
+        return "Success",201
 
+    @require_vendor
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=int, required=True)
+        args = parser.parse_args()
+        store = get_default_store()
+        c = store.find(Category, Category.id == args['id']).one()
+        if c is None:
+            return "Fail",404
+        store.remove(c)
+        store.commit()
+        return "Success",204
+
+    @require_vendor
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=int, required=True)
+        parser.add_argument('name', type=unicode, required=True)
+        args = parser.parse_args()
+        store = get_default_store()
+        c = store.find(Category, Category.id == args['id']).one()
+        if c is None:
+            return "Fail",404
+        c.name = args['name']
+        store.flush()
+        return "Success",201
+"""
 @FinalResource
 class CategoryResource(BaseResource):
 
     properties = {
+        'id': fields.Integer,
         'name': fields.String
     }
 
