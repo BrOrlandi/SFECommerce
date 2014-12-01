@@ -28,7 +28,7 @@ def get_order_products(order):
 	for p in prods:
 		pdict = p.product.dict()
 		pdict['price'] = float(pdict['price']) # price is decimal
-		op = {'product': pdict, 'quantity': p.quantity}
+		op = {'order_product_id': p.id,'product': pdict, 'quantity': p.quantity}
 		order_products.append(op)
 	return order_products
 
@@ -65,3 +65,17 @@ def add_product():
 	store.commit()
 	return "Success"
 
+@order_api.route("/cart/remove_product", methods=['POST'])
+@require_login
+def remove_product():
+	""" Remove product from cart """
+	store = get_default_store()
+
+	op = store.find(OrderProduct, OrderProduct.id == int(request.form['id'])).one()
+	if op is None:
+		return "Fail"
+	store.remove(op)
+	store.commit()
+	return "Success"
+
+# TODO close order
