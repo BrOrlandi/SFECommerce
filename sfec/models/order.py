@@ -3,7 +3,7 @@
 from storm.references import Reference, ReferenceSet
 from storm.properties import Int, Unicode
 
-from sfec.models.user import Customer, Vendor
+from sfec.models.user import User, Customer, Vendor
 from sfec.models.base import BaseModel
 
 
@@ -12,15 +12,14 @@ class Order(BaseModel):
     __storm_table__ = "sfec_order"
 
     status = Unicode()
-    customer_service_id = Int()
 
-    customer_service = Reference(customer_service_id,
-                                 'CustomerService.order_id')
     products = ReferenceSet('Order.id', 'OrderProduct.order_id')
 
-    def __init__(self):
-        self.status = "Buying"
+    user_id = Int()
+    user = Reference(user_id, User.id)
 
+    def __init__(self):
+        self.status = u"Buying"
 
 class OrderProduct(BaseModel):
 
@@ -33,8 +32,27 @@ class OrderProduct(BaseModel):
     order = Reference(order_id, 'Order.id')
     product = Reference(product_id, 'Product.id')
 
-    def __init__(self, product):
+    def __init__(self, order, product, quantity):
+        self.order = order
         self.product = product
+        self.quantity = quantity
+
+class Cart(BaseModel):
+
+    __storm_table__ = "sfec_cart"
+
+    order_id = Int()
+    order = Reference(order_id, 'Order.id')
+
+    user_id = Int()
+    user = Reference(user_id, User.id)
+
+    def __init__(self, user):
+        self.order = Order()
+        self.order.user_id = user.id
+        self.user_id = user.id
+
+
 
 
 class CustomerService(BaseModel):

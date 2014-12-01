@@ -79,11 +79,19 @@ CREATE TABLE sfec_customer_service(
     vendor_id INTEGER NOT NULL REFERENCES sfec_vendor(id)
 );
 
+DROP TABLE IF EXISTS sfec_cart;
+CREATE TABLE sfec_cart(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL REFERENCES sfec_order(id),
+    user_id INTEGER NOT NULL REFERENCES sfec_user(id),
+    UNIQUE(user_id)
+);
+
 DROP TABLE IF EXISTS sfec_order;
 CREATE TABLE sfec_order(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    status TEXT NOT NULL,
-    customer_service_id INTEGER NOT NULL REFERENCES sfec_customer_service(id)
+    user_id INTEGER NOT NULL REFERENCES sfec_user(id),
+    status TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS sfec_order_product;
