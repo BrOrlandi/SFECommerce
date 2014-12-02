@@ -101,6 +101,23 @@ class ProductResource(BaseResource):
         store.flush()
         return "Success",201
 
+    def get(self, id=None):
+        sup = super(ProductResource,self).get(id)
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('id', type=int, required=False)
+        parser.add_argument('categories', type=int, required=False, action='append')
+        args = parser.parse_args()
+
+        if args['categories']:
+            categories = args['categories']
+            return [r for r in sup
+                    if set([c.id for c in r.categories]) & set(categories) ==
+                       set(categories)]
+        else:
+            return sup
+
+
 @FinalResource
 class CategoryResource(BaseResource):
 

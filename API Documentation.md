@@ -5,7 +5,7 @@ Resources
 ------
 **Product:**    
 `/api/products`  
-*GET:* id, name  
+*GET:* id, name, categories  
 require vendor:  
 *POST:* name, stock, description, price, is_available, categories(array)  
 *PUT:* id, name, stock, description, price, is_available, categories(array)  
