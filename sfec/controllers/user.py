@@ -54,6 +54,17 @@ def login():
 		return json.dumps(user.json())
 	abort(403)
 
+
+@user_api.route('/login_check', methods=['GET'])
+def login_check():
+    user_id = session.pop('user', None)
+    store = get_default_store()
+    user = store.find(User, id=user_id).one()
+    if user:
+        return json.dumps(user.json())
+    abort(403)
+
+
 @user_api.route('/logout', methods=['GET'])
 @require_login
 def logout():
