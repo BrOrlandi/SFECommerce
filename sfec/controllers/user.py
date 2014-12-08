@@ -51,8 +51,8 @@ def login():
 	user = User.authenticate(store, request.form['email'],request.form['password'])
 	if user:
 		session['user'] = user.id
-		return "True"
-	return "False"
+		return json.dumps(user.json())
+	abort(403)
 
 @user_api.route('/logout', methods=['GET'])
 @require_login
