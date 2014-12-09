@@ -23,24 +23,24 @@ def is_email_address_valid(email):
 def register():
 	"""Register a new user."""
 	if not is_email_address_valid(request.form['email']):
-		return "E-mail not valid!"
+		abort(403)
 
 	store = get_default_store()
 	# Default user is customer, an admin must change the user to staff member (admin or vendor)
 	found = store.find(User, User.email == request.form['email']).one()
 	if found is not None:
-		return "E-mail already taken!"
+		abort(403)
 	new_customer = Customer()
 	user = User()
 	user.name = request.form['name']
 	user.email = request.form['email']
 	user.set_password(request.form['password'])
-	user.birth_date = datetime.strptime(request.form['birth_date'],"%m-%d-%Y")
 	store = get_default_store()
 	new_customer.user = user
 	store.add(new_customer)
 	store.commit()
-	return "Success!"
+	session['user'] = user.id
+	return user.json()
 
 
 
@@ -51,7 +51,7 @@ def login():
 	user = User.authenticate(store, request.form['email'],request.form['password'])
 	if user:
 		session['user'] = user.id
-		return json.dumps(user.json())
+		return user.json()
 	abort(403)
 
 
@@ -61,7 +61,7 @@ def login_check():
     store = get_default_store()
     user = store.find(User, id=user_id).one()
     if user:
-        return json.dumps(user.json())
+        return user.json()
     abort(403)
 
 
