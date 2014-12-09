@@ -17,6 +17,7 @@ class BaseUsersResource(BaseResource):
         'id': fields.Integer,
         'name': fields.String,
         'email': fields.String,
+        'is_admin': fields.Boolean,
         'birth_date': DateTimeInt,
         'register_date': DateTimeInt,
     }

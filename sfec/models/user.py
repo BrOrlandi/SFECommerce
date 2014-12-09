@@ -8,6 +8,7 @@ from storm.expr import And
 from storm.properties import DateTime, Unicode
 from storm.references import Reference
 
+from sfec.database.runtime import get_default_store
 from sfec.models.base import BaseModel
 
 
@@ -26,6 +27,15 @@ class User(BaseModel):
 
     def __init__(self):
         self.register_date = datetime.now()
+
+    #
+    # Properties
+    #
+
+    @property
+    def is_admin(self):
+        store = get_default_store()
+        return store.find(Admin, id=self.id).one() is not None
 
     #
     # Static API
@@ -54,6 +64,11 @@ class User(BaseModel):
     #
     # Public API
     #
+
+    def dict(self):
+        super_dict = super(User, self).dict()
+        super_dict['is_admin'] = self.is_admin
+        return super_dict
 
     def set_password(self, password):
         self.password = self.hash(password)
